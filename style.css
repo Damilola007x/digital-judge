@@ -1,0 +1,303 @@
+/* --- High-End SaaS Design Palette --- */
+:root {
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --bg-main: #f8fafc;
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --text-heading: #0f172a;
+    --text-body: #334155;
+    --judge-red: #ef4444;
+    --judge-green: #22c55e;
+    --border-soft: #e2e8f0;
+    --shadow-sm: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background: var(--bg-main);
+    font-family: 'Inter', system-ui, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--text-body);
+}
+
+/* --- The Dynamic Judge Background --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    filter: grayscale(40%) contrast(110%);
+    z-index: -1;
+}
+
+/* --- Main Glass Container --- */
+.container {
+    width: 90%;
+    max-width: 900px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border-radius: 24px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid white;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+}
+
+header {
+    text-align: left;
+    border-bottom: 2px solid var(--border-soft);
+    padding-bottom: 20px;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-heading);
+    margin: 0;
+    letter-spacing: -0.025em;
+}
+
+/* --- Interactive Input Grid --- */
+.input-section {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Compact sidebar for file, wide for text */
+    gap: 24px;
+    align-items: start;
+}
+
+@media (max-width: 768px) {
+    .input-section { grid-template-columns: 1fr; }
+}
+
+/* --- Modern Circular Plus Upload --- */
+.form-group:first-of-type {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+}
+
+.form-group:first-of-type:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.form-group:first-of-type::before {
+    content: '+';
+    display: flex;
+    margin: 0 auto 12px;
+    width: 44px;
+    height: 44px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 300;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+#pdfFile {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer;
+}
+
+#fileNameDisplay {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+    word-break: break-all;
+}
+
+/* --- Large Scenario Textarea --- */
+textarea {
+    width: 100%;
+    min-height: 220px;
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: none;
+    background: white;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.03);
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+
+/* --- Result Layout --- */
+#resultArea {
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 30px;
+    border: 2px solid transparent;
+    display: none;
+    animation: slideUp 0.4s ease-out;
+}
+
+.violation-theme {
+    background: #fff5f5;
+    border-color: var(--judge-red) !important;
+}
+
+.compliant-theme {
+    background: #16c64b;
+    border-color: var(--judge-green) !important;
+}
+
+#verdictTitle {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+#analysisContent {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-body);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+/* --- Centered but shifted Button Container --- */
+.button-row {
+    display: flex;
+    justify-content: center; /* Initial center alignment */
+    width: 100%;
+    margin-top: 10px;
+    /* This "padding-left" nudges the button to the right of the true center */
+    padding-left: 150px; 
+    box-sizing: border-box;
+}
+
+#analyzeBtn {
+    background: var(--text-heading);
+    color: white;
+    padding: 16px 48px;
+    border-radius: 50px; /* Changed to pill-shape for higher-end look */
+    border: none;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: var(--shadow-sm);
+}
+
+#analyzeBtn:hover {
+    background: var(--primary); /* Glows blue on hover */
+    transform: scale(1.05) translateX(5px); /* Moves 5px further right on hover */
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+}
+
+#analyzeBtn.processed {
+    background: var(--border-soft);
+    color: var(--text-dim);
+    cursor: not-allowed;
+    transform: none;
+}
+.button-container {
+    grid-column: 2; 
+    display: flex;
+    justify-content: center; /* Moves button to the right edge */
+    padding-top: 10px;
+}
+/* --- Logo Styling --- */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.app-logo {
+    width: 80px;  /* Adjust size as needed */
+    height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    transition: transform 0.3s ease;
+}
+
+.app-logo:hover {
+    transform: rotate(-5deg) scale(1.1);
+}
+
+/* Header adjustment to keep things tight */
+header h1 {
+    margin-top: 10px;
+    font-size: 2rem;
+}
+/* --- Tightened Loader Styling --- */
+#loader {
+    display: none;
+    text-align: center; /* Aligns with the right-shifted button */
+    margin-top: -5px;  /* Nudges it up toward the button */
+    padding-right: 20px; /* Adjust this to line up perfectly with your button edge */
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 0.85rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Tiny pulsing emoji inline with text */
+#loader::before {
+    content: "⚖️";
+    display: inline-block;
+    font-size: 1.1rem;
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: pulseJudge 1.2s infinite ease-in-out;
+}
+
+@keyframes pulseJudge {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+header .header-main {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between text and logo */
+}
+
+.header-logo {
+    color: var(--primary);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Ensure the loader SVG spins or pulses */
+.loader-svg {
+    animation: rotateScale 2s infinite ease-in-out;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+@keyframes rotateScale {
+    0% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    100% { transform: rotate(-10deg); }
+}
