@@ -3,76 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Judge | AI Compliance Audit</title>
+    <title>Digital Judge | Home</title>
     
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3v18M6 7l6-2 6 2M6 7v4a3 3 0 006 0M18 7v4a3 3 0 01-6 0M3 21h18'/></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230984e3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3v18M6 7l6-2 6 2M6 7v4a3 3 0 006 0M18 7v4a3 3 0 01-6 0M3 21h18'/></svg>">
     
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home-style.css">
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <div class="header-main">
-            <h1>Digital Judge</h1>
-            <svg class="header-logo" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+<div class="hero-container">
+    <header class="hero-header">
+        <div class="logo">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 3v18M6 7l6-2 6 2M6 7v4a3 3 0 006 0M18 7v4a3 3 0 01-6 0M3 21h18"/>
-                <circle cx="12" cy="12" r="1" fill="#2563eb"/>
+                <circle cx="12" cy="12" r="1" fill="#0984e3"/>
             </svg>
         </div>
-        <div class="tagline">Neuro-Symbolic Compliance Verification Engine</div>
+        <h1>Digital Judge</h1>
+        <p class="tagline">Neuro-Symbolic AI Compliance Auditor</p>
     </header>
 
-    <div class="input-section">
-        <div class="form-group">
-            <label for="pdfFile">Upload Handbook</label>
-            <div id="fileNameDisplay">No file selected</div>
-            <input type="file" id="pdfFile" accept="application/pdf">
-        </div>
+    <section class="mission">
+        <p>
+            Bridging the gap between <strong>Natural Language</strong> and <strong>Formal Logic</strong>. 
+            Digital Judge uses Large Language Models to extract rules and a 
+            Symbolic Resolution Engine to prove compliance with 100% mathematical certainty.
+        </p>
+    </section>
 
-        <div class="scenario-group">
-            <textarea id="scenario" placeholder="Describe the employee action or scenario here... e.g., 'Junior dev working remotely on a holiday.'"></textarea>
+    <div class="feature-grid">
+        <div class="card">
+            <div class="icon">🔍</div>
+            <h3>Dynamic Extraction</h3>
+            <p>Gemini AI parses unstructured PDF handbooks into formal logic predicates (P > Q).</p>
+        </div>
+        <div class="card">
+            <div class="icon">🛡️</div>
+            <h3>Logical Integrity</h3>
+            <p>Our Resolution Engine ensures no hallucinations. If it's a violation, we can prove it.</p>
+        </div>
+        <div class="card">
+            <div class="icon">💡</div>
+            <h3>Actionable Advice</h3>
+            <p>Receive immediate guidance based on detected policy contradictions.</p>
         </div>
     </div>
 
-    <div class="action-wrapper">
-        <div class="button-container">
-            <button id="analyzeBtn">Analyze Scenario</button>
-        </div>
-        <div id="loader" class="loader">
-            <svg class="loader-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 3v18M6 7l6-2 6 2M6 7v4a3 3 0 006 0M18 7v4a3 3 0 01-6 0M3 21h18"/>
-            </svg>
-            <span>Consulting Logic Gates...</span>
-        </div>
+    <div class="cta-section">
+        <a href="app.html" class="launch-btn">Enter Application</a>
     </div>
 
-    <div id="resultArea">
-        <div class="verdict-badge" id="verdictLabel">Audit Result</div>
-        <h2 id="verdictTitle">Checking Logic...</h2>
-        <div class="analysis-box" id="analysisContent"></div>
-        
-        <div class="meta-footer">
-            <span id="ruleCount">Rules Processed: 0</span>
-            <span>Mathematical Resolution: Active</span>
-        </div>
-    </div>
+    <footer class="footer">
+        <p>Final Year Thesis Project &copy; 2026</p>
+        <p>Built with Java and Spring Boot</p>
+    </footer>
 </div>
-
-<script src="script.js"></script>
-
-<script>
-    const fileInput = document.getElementById('pdfFile');
-    const fileNameDisplay = document.getElementById('fileNameDisplay');
-
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            fileNameDisplay.innerText = "Selected: " + e.target.files[0].name;
-            fileNameDisplay.style.color = "#2563eb"; 
-        }
-    });
-</script>
 
 </body>
 </html>
