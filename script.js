@@ -9,8 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const verdictTitle = document.getElementById('verdictTitle');
     const analysisContent = document.getElementById('analysisContent');
     
-    // Matches the id="ruleCountDisplay" in your HTML footer
+    // FIX: This MUST match the id="ruleCountDisplay" in your HTML
     const ruleCount = document.getElementById('ruleCountDisplay'); 
+    
     const verdictLabel = document.getElementById('verdictLabel');
 
     // --- 1. Show File Name after uploading ---
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         resultArea.style.display = 'none';
         
         analyzeBtn.disabled = true;
-        analyzeBtn.innerText = "Consulting Logic Gates...";
+        analyzeBtn.innerText = "Analyzing logic gates...";
         analyzeBtn.style.opacity = "0.7";
 
         const formData = new FormData();
@@ -44,61 +45,57 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append("scenario", scenarioInput.value);
 
         try {
-            // --- 4. Send to Backend (Render URL) ---
-            const response = await fetch('https://digital-judge-backend.onrender.com/api/compliance/audit', {
+            // 4. Send to Backend 
+           const response = await fetch('http://localhost:8080/api/compliance/audit', {
                 method: 'POST',
                 body: formData
             });
 
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.explanation || "Server Error");
+            }
+
             const data = await response.json();
 
-            // --- 5. Update UI with AI Result ---
+            // 5. Update UI with AI Result
             if (data.success) {
                 verdictTitle.innerText = data.status; 
                 analysisContent.innerText = data.explanation;
                 
-                // Update the "Rules identified" count in the footer
+                // This will now work because ruleCount matches ruleCountDisplay
                 if (ruleCount) {
-                    ruleCount.innerText = "Rules identified: " + (data.rulesCount || 0);
+                    ruleCount.innerText = "Rules identified: " + data.rulesCount;
                 }
 
-                // Apply Dynamic Styling based on Verdict
                 if (data.status.toUpperCase() === "VIOLATION") {
-                    applyVerdictStyle("#ef4444", "#fef2f2"); // Red
+                    applyVerdictStyle("#ef4444", "#fef2f2"); 
                 } else if (data.status.toUpperCase() === "COMPLIANT") {
-                    applyVerdictStyle("#22c55e", "#f0fdf4"); // Green
+                    applyVerdictStyle("#22c55e", "#f0fdf4"); 
                 } else {
-                    applyVerdictStyle("#64748b", "#f8fafc"); // Gray
+                    applyVerdictStyle("#64748b", "#f8fafc"); 
                 }
                 
                 resultArea.style.display = 'block';
                 resultArea.scrollIntoView({ behavior: 'smooth' });
                 
                 analyzeBtn.innerText = "Audit Complete";
-                analyzeBtn.disabled = false;
-                analyzeBtn.style.opacity = "1";
                 
             } else {
                 alert("Audit failed: " + data.explanation);
-                resetButton(analyzeBtn);
+                analyzeBtn.innerText = "Run Logical Audit";
+                analyzeBtn.disabled = false;
             }
         } catch (error) {
             console.error("Audit Error:", error);
-            alert("Connection Error: Make sure the backend is awake on Render.");
-            resetButton(analyzeBtn);
+            alert("Error: " + error.message);
+            analyzeBtn.innerText = "Run Logical Audit";
+            analyzeBtn.disabled = false;
         } finally {
             loader.style.display = 'none';
         }
     });
 
-    // Helper to reset button state
-    function resetButton(btn) {
-        btn.innerText = "Run Logical Audit";
-        btn.disabled = false;
-        btn.style.opacity = "1";
-    }
-
-    // Dynamic UI Color Logic
     function applyVerdictStyle(primaryColor, bgColor) {
         if (verdictLabel) verdictLabel.style.backgroundColor = primaryColor;
         if (verdictTitle) verdictTitle.style.color = primaryColor;
