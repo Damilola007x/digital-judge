@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // --- 4. Send to Backend (Render URL) ---
-            const response = await fetch('https://digital-judge-backend.onrender.com/api/compliance/audit', {
+            const response = await fetch('https://DigitalJudge2.onrender.com/api/compliance/audit', {
                 method: 'POST',
                 body: formData
             });
